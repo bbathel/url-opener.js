@@ -96,3 +96,4 @@
        modal_check_box_handler();
       }
     )
+    
