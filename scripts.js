@@ -1,7 +1,7 @@
     var urls,links;                      // these are used later
     var shareble_url = window.location.origin+window.location.pathname+"?urls=";
     var url_regex = /^(https?:\/\/)([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/; //this regex helps find urls that have the protocol on them only
-    
+    var modal_check_box , shareble_textarea ;
     
     /* this creates the links and adds them to the bottom div
      * it takes one argument which should be a string of urls
@@ -78,3 +78,22 @@
             }                                         // end for in loop
       }                                               // end if urls
     }
+    function modal_check_box_handler(){
+        modal_check_box = $('#open_urls_link');
+        shareble_textarea = $('#myModal textarea')
+        modal_check_box.click(
+          function(){
+            if (modal_check_box.is(':checked')) {    // tests if checkbox is checked
+              shareble_textarea.val(shareble_textarea.val()+"&open=true"); // adds a second variable to the query string set to true this will cause this link to automatically open windows
+            }
+            else
+              shareble_textarea.val(shareble_textarea.val().replace('&open=true','')); // removes "&open=true" from the shareble link text.
+          }
+        )
+      }
+    $(document).ready(
+      function(){
+       modal_check_box_handler();
+      }
+    )
+    
