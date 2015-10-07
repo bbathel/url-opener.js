@@ -18,7 +18,7 @@
         <div class="row">
           <textarea class="col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1" name="" id="" rows="10"></textarea>
         </div>
-        <div class="row">
+        <div class="row" style="margin-top:2.5%;">
           <input class='btn btn-primary col-xs-8 col-xs-offset-2  col-sm-offset-2 col-sm-4' value='Link Them' type="submit">
           <button class="btn btn-danger col-xs-8 col-xs-offset-2 col-sm-4 col-sm-offset-0 " type="reset">Reset</button>
         </div>
