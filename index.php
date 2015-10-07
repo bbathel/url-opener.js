@@ -59,6 +59,7 @@
         
         if (urls.length > 0) {       // if there are any get parameters present it runs link_them() on them paramters.
           link_them(urls[0])
+          fill_textarea(urls[0])
         }
   
         if ((urls.length > 1) && urls[1]) { 
