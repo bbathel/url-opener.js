@@ -1,6 +1,7 @@
     var urls,links;                      // these are used later
     var shareble_url = window.location.origin+window.location.pathname+"?urls=";
     var url_regex = /^(https?:\/\/)([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/; //this regex helps find urls that have the protocol on them only
+    var url_no_protocol_regex = /^([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/
     var modal_check_box , shareble_textarea ;
     
     /* this creates the links and adds them to the bottom div
@@ -12,9 +13,16 @@
             links = urls.split(/[|,\n\s]+/g);         // split the urls on new lines, pipes, and commas. Also, this should get rid of blank lines too.
             $('.collapse').removeClass('collapse');   // show div that contains all the links
             for (link in links) {                     // iterate through each link
-              if (links[link] !== " " && links[link] !== "" && links[link].match(url_regex)) {  // if the link happend to be a blank line don't do it (hopefully the regex won't allow this but who knows)
-                $("<a class='btn btn-link col-sm-6 col-xs-12 ' target='_blank'href='"+links[link]+"'>"+links[link]+"</a>").appendTo('#links div ');// create the link and add it to the div above the button.
-                shareble_url += "|"+links[link];
+              if (links[link] !== " " && links[link] !== "" ) {  // if the link happend to be a blank line don't do it (hopefully the regex won't allow this but who knows)
+                if (links[link].match(url_regex)) {
+                  $("<a class='btn btn-link col-sm-6 col-xs-12 ' target='_blank'href='"+links[link]+"'>"+links[link]+"</a>").appendTo('#links div ');// create the link and add it to the div above the button.
+                  shareble_url += "|"+links[link];
+                }
+                else if(links[link].match(url_no_protocol_regex)){
+                  $("<a class='btn btn-link col-sm-6 col-xs-12 ' target='_blank'href='http://"+links[link]+"'>"+links[link]+"</a>").appendTo('#links div ');// create the link and add it to the div above the button.
+                  shareble_url += "|"+links[link];
+                }
+                
               }                                       // end if
             }                                         // end for
              $('#share_url').text(shareble_url);      // puts sharable url text inside modal
@@ -47,7 +55,7 @@
             window.alert('submit');
           }
           urls = $textarea.val();  // get the values from the div
-          $textarea.val('');       // clears the textarea
+          // this line would clear the textarea but I'm removing this feature $textarea.val('');       // clears the textarea
           link_them(urls);         // this creates the links and adds them to the bottom div
     }
     
@@ -91,9 +99,35 @@
           }
         )
       }
+      
+      
+      
+    /* Document.ready adds all event handlers and runs all the functions that should run on opening the page */  
     $(document).ready(
       function(){
        modal_check_box_handler();
-      }
-    )
-    
+       urls = get_params();         // gets any parameters in the url
+        
+        if (urls.length > 0) {       // if there are any get parameters present it runs link_them() on them paramters.
+          link_them(urls[0])
+          fill_textarea(urls[0])
+        }
+  
+        if ((urls.length > 1) && urls[1]) { 
+          open_links();              // if you add a second get parameter and set it to true it will automatically open the urls.
+        }
+        
+        $('form#main').submit(
+          function(e){submitForm(e)
+          }                          // end function(e)
+        )                            // end submit()
+        
+        $('#open_urls').click(
+          function(){ open_links();
+            }                        // end function() inside click
+        )                            // end click()
+        
+        $('#share_url').click(function(){$(this).select();}); // selects all the text when you click it in the modal
+      })                             // end ready()
+
+        

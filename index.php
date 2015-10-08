@@ -55,30 +55,7 @@
     </div>
 
     <script>
-      $(document).ready(function(){
-        urls = get_params();         // gets any parameters in the url
-        
-        if (urls.length > 0) {       // if there are any get parameters present it runs link_them() on them paramters.
-          link_them(urls[0])
-          fill_textarea(urls[0])
-        }
-  
-        if ((urls.length > 1) && urls[1]) { 
-          open_links();              // if you add a second get parameter and set it to true it will automatically open the urls.
-        }
-        
-        $('form#main').submit(
-          function(e){submitForm(e)
-          }                          // end function(e)
-        )                            // end submit()
-        
-        $('#open_urls').click(
-          function(){ open_links();
-            }                        // end function() inside click
-        )                            // end click()
-        
-        $('#share_url').click(function(){$(this).select();}); // selects all the text when you click it in the modal
-      })                             // end ready()
+     
     </script>
     
     <!-- Latest compiled and minified CSS -->
