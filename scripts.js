@@ -79,10 +79,15 @@
       if (urls !== "" && urls !== " " ) {             // if the text area is not empty
             links = urls.split(/[|,\n\s]+/g);         // split the urls on new lines, pipes, and commas. Also, this should get rid of blank lines too.
             for (link in links) {                     // iterate through each link
-              if (links[link] !== " " && links[link] !== "" && links[link].match(url_regex)) {
-                textarea_string += links[link] + '\n';// adds each link to this string with a new line after it
-              }                                       // end if links[link]
-              textarea.value = textarea_string;
+              if (links[link] !== " " && links[link] !== "" ) {  // if the link happend to be a blank line don't do it (hopefully the regex won't allow this but who knows)
+                if (links[link].match(url_regex)) {
+                  textarea_string += links[link] + '\n';// adds each link to this string with a new line after it
+                }
+                else if(links[link].match(url_no_protocol_regex)){
+                   textarea_string += links[link] + '\n';// adds each link to this string with a new line after it
+                }
+                textarea.value = textarea_string;
+              }
             }                                         // end for in loop
       }                                               // end if urls
     }
