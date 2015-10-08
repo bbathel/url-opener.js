@@ -91,6 +91,9 @@
             }                                         // end for in loop
       }                                               // end if urls
     }
+    
+    
+    /*this is the modal checkbox click handler it checks if the box is clicked and if so it add "&open=true" to the shareable link and if it is not clicked it removes "&open=true"*/
     function modal_check_box_handler(){
         modal_check_box = $('#open_urls_link');
         shareble_textarea = $('#myModal textarea')
@@ -106,11 +109,24 @@
       }
       
       
+    /* Reset button handler. It clears the textarea, the links at the bottom, unchecks the modal checkbox, and the shareable links box */
+    function reset_button_handler(){
+      $('button[type="reset"]').click(function(){
+        modal_check_box.attr('checked',false);                                   // unchecks modal checkbox
+        shareble_url = window.location.origin+window.location.pathname+"?urls="; // sets shareble_url back to it's default value;
+        $('#share_url').val(shareble_url);                                       // puts sharable url text inside modal
+        $('#links div a').remove()                                               // removes all the links from the bottom
+        $('#links, #links + .row').addClass('collapse')                          // collapses footer
+      })
+    }
+      
+      
       
     /* Document.ready adds all event handlers and runs all the functions that should run on opening the page */  
     $(document).ready(
       function(){
        modal_check_box_handler();
+       reset_button_handler();
        urls = get_params();         // gets any parameters in the url
         
         if (urls.length > 0) {       // if there are any get parameters present it runs link_them() on them paramters.
@@ -133,6 +149,8 @@
         )                            // end click()
         
         $('#share_url').click(function(){$(this).select();}); // selects all the text when you click it in the modal
+        
+        
       })                             // end ready()
 
         
