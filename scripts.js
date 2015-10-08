@@ -1,7 +1,7 @@
     var urls,links;                      // these are used later
     var shareble_url = window.location.origin+window.location.pathname+"?urls=";
-    var url_regex = /^(https?:\/\/)([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/; //this regex helps find urls that have the protocol on them only
-    var url_no_protocol_regex = /^([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/
+    var url_regex = /^(https?:\/\/)([\da-z\.\-\~]+)\.([a-z\.]{2,6})([\/\w \.\-\~]*)*\/?$/; //this regex helps find urls that have the protocol on them only
+    var url_no_protocol_regex = /^([\da-z\.\-\~]+)\.([a-z\.]{2,6})([\/\w \.\-\~]*)*\/?$/;
     var modal_check_box , shareble_textarea ;
     
     /* this creates the links and adds them to the bottom div
