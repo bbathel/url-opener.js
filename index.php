@@ -49,7 +49,7 @@
             <h4 class="modal-title">Share this link</h4>
           </div>
           <div class="modal-body">
-            <textarea id="share_url" class="col-xs-12" style="overflow:auto;">You haven't added any links yet</textarea>
+            <textarea id="share_url" class="col-xs-12" rows=10 style="overflow:auto;">You haven't added any links yet</textarea>
           </div>
           <div class="modal-footer row">
             <label  class="text-info text-left col-xs-7">If you check this box the link above will open the urls when the link is used</label><input class="col-xs-1"type="checkbox" name="open_urls_link" id="open_urls_link">

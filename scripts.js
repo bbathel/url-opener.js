@@ -12,20 +12,20 @@
       if (urls !== "" && urls !== " " ) {             // if the text area is not empty
             links = urls.split(/[|,\n\s]+/g);         // split the urls on new lines, pipes, and commas. Also, this should get rid of blank lines too.
             $('.collapse').removeClass('collapse');   // show div that contains all the links
-            for (link in links) {                     // iterate through each link
-              if (links[link] !== " " && links[link] !== "" ) {  // if the link happend to be a blank line don't do it (hopefully the regex won't allow this but who knows)
-                if (links[link].match(url_regex)) {
-                  $("<a class='btn btn-link col-sm-6 col-xs-12 ' target='_blank'href='"+links[link]+"'>"+links[link]+"</a>").appendTo('#links div ');// create the link and add it to the div above the button.
-                  shareble_url += "|"+links[link];
+            for (var i = 0; i < links.length; i++) {                     // iterate through each link
+              if (links[i] !== " " && links[i] !== "" ) {  // if the link happend to be a blank line don't do it (hopefully the regex won't allow this but who knows)
+                if (url_regex.test(links[i])) {
+                  $("<a class='btn btn-link col-sm-6 col-xs-12 ' target='_blank'href='"+links[i]+"'>"+links[i]+"</a>").appendTo('#links div ');// create the link and add it to the div above the button.
+                  shareble_url += "|"+links[i];
                 }
-                else if(links[link].match(url_no_protocol_regex)){
-                  $("<a class='btn btn-link col-sm-6 col-xs-12 ' target='_blank'href='http://"+links[link]+"'>"+links[link]+"</a>").appendTo('#links div ');// create the link and add it to the div above the button.
-                  shareble_url += "|"+links[link];
+                else if(url_no_protocol_regex.test(links[i])){
+                  $("<a class='btn btn-link col-sm-6 col-xs-12 ' target='_blank'href='http://"+links[i]+"'>"+links[i]+"</a>").appendTo('#links div ');// create the link and add it to the div above the button.
+                  shareble_url += "|"+links[i];
                 }
                 
               }                                       // end if
             }                                         // end for
-             $('#share_url').text(shareble_url);      // puts sharable url text inside modal
+             $('#share_url').val(shareble_url);      // puts sharable url text inside modal
           }                                           // end if urls
     }                                                 // end link_them();
     
@@ -80,10 +80,10 @@
             links = urls.split(/[|,\n\s]+/g);         // split the urls on new lines, pipes, and commas. Also, this should get rid of blank lines too.
             for (link in links) {                     // iterate through each link
               if (links[link] !== " " && links[link] !== "" ) {  // if the link happend to be a blank line don't do it (hopefully the regex won't allow this but who knows)
-                if (links[link].match(url_regex)) {
+                if (url_regex.test(links[link])) {
                   textarea_string += links[link] + '\n';// adds each link to this string with a new line after it
                 }
-                else if(links[link].match(url_no_protocol_regex)){
+                else if(url_no_protocol_regex.test(links[link])){
                    textarea_string += links[link] + '\n';// adds each link to this string with a new line after it
                 }
                 textarea.value = textarea_string;
